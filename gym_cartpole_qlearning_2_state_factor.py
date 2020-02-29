@@ -2,8 +2,10 @@ import gym
 import numpy as np
 import math
 import random
-env = gym.make("CartPole-v1")
+import matplotlib.pyplot as plt
 
+env = gym.make("CartPole-v1")
+plotData=np.zeros(1000)
 #Use the pole angle and pole angle speed data
 #Position and velocity of the cart is a little side objective, and can be solved by solving pole angle&angle velocity
 
@@ -87,6 +89,7 @@ for time in range(500):
 		updateQMAP(oldStateCo1,oldStateCo2,newStateCo1,newStateCo2,action,reward,alpha)
 		oldStateCo2 = newStateCo2
 		oldStateCo1 = newStateCo1
+	plotData[time]=roundSurvival
 	print(time, "Round reward and epsilon is:",roundSurvival, epsilon)
 
 #print(QMAP)
@@ -96,7 +99,7 @@ print("Average rewards in first 500 rounds is:",average1)
 
 #Second 500 rounds, for demonstrating reward
 accumulatedReward=0
-for time in range(500,1001):
+for time in range(500,1000):
 	roundSurvival=0
 	alpha=chooseAlpha(time)
 	epsilon=chooseEpsilon(time)
@@ -118,12 +121,13 @@ for time in range(500,1001):
 		updateQMAP(oldStateCo1,oldStateCo2,newStateCo1,newStateCo2,action,reward,alpha)
 		oldStateCo2 = newStateCo2
 		oldStateCo1 = newStateCo1
+	plotData[time]=roundSurvival
 	print(time, "Round reward is:",roundSurvival)
 #print(QMAP)
 average2=accumulatedReward/500
 
 print("Average rewards in first 500 rounds is:",average1)
-print("Average rewards in second 500 rounds is:",average2-1) #It shows 501 rewards out of 500 so -1
+print("Average rewards in second 500 rounds is:",average2) 
 
 accumulatedReward=0
 print("Lastly a visualization for 1000 ticks")
@@ -137,7 +141,7 @@ for time in range(1001,1002):
 	oldStateCo2=discretizePoleAngleSpeed(oldObservation[3])
 
 	for survival in range(1000):
-		env.render()
+#		env.render()
 		action=chooseAction(epsilon,oldStateCo1,oldStateCo2)
 		newObservation, reward, done, info = env.step(action)
 		accumulatedReward+=reward
@@ -156,3 +160,6 @@ for time in range(1001,1002):
 
 
 env.close()
+
+plt.plot(plotData)
+plt.show()

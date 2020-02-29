@@ -152,7 +152,7 @@ for time in range(1001,1002):
 		newStateCo2=discretizePoleAngleSpeed(newObservation[3])
 		oldStateCo2 = newStateCo2
 		oldStateCo1 = newStateCo1
-	print(time, "Round reward is:",roundSurvival, epsilon)
+	print("1000 tick reward is:",roundSurvival)
 
 
 env.close()

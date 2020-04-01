@@ -1,6 +1,6 @@
 # cmpe58z-hw1-qlearning
   
-  By FarukOzderim  
+  _By FarukOzderim_  
   
 OpenAI Gym Cartpole Qlearning project.  
 https://gym.openai.com/envs/CartPole-v1/

@@ -141,7 +141,7 @@ for time in range(1001,1002):
 	oldStateCo2=discretizePoleAngleSpeed(oldObservation[3])
 
 	for survival in range(1000):
-#		env.render()
+		env.render()
 		action=chooseAction(epsilon,oldStateCo1,oldStateCo2)
 		newObservation, reward, done, info = env.step(action)
 		accumulatedReward+=reward
